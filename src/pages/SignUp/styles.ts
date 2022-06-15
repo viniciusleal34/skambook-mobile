@@ -10,7 +10,7 @@ const HEIGHT = "height";
 
 export const Content = styled(KeyboardAwareScrollView).attrs({
   behavior: Platform.OS === IOS ? PADDING : HEIGHT,
-  keyboardVerticalOffset: Platform.OS === IOS ? "20px" : "200px",
+  keyboardVerticalOffset: Platform.OS === IOS ? 20 : 0,
 })`
   background-color: ${styles.colors.light4};
   border-radius: 30px;

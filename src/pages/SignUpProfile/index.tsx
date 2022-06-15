@@ -1,8 +1,8 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Input from "../../components/Input";
 import { ProfileOutlited, ArrowFoward, DateRange } from "../../assets/icons";
-
+import { ImageProps } from "react-native";
 import {
   Container,
   Content,
@@ -14,28 +14,46 @@ import {
   ButtonProfilePhoto,
   TextProfile,
   Icon,
+  ImageSelect,
 } from "./styles";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
 import InputMasked from "../../components/InputMasked";
 import styles from "../../styles";
+import { pickImage } from "../../utils/PickImageFunction";
+import ModalSelectImage from "../../components/ModalSelectImage";
 
 const SignUpProfile: React.FC = () => {
   const [date, setDate] = useState("");
   const [isSelected, setSelection] = useState(false);
+  const [image, setImage] = useState<any>(false);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const openModal = useCallback(() => {
+    setModalVisible(true);
+  }, []);
 
   return (
     <Container>
+      <ModalSelectImage
+        visible={modalVisible}
+        setVisible={setModalVisible}
+        setImage={setImage}
+      />
       <StatusBar />
       <Header />
       <Content enabled>
-        <ButtonProfilePhoto>
+        <ButtonProfilePhoto onPress={openModal}>
           <Icon>
-            <ProfileOutlited
-              height={50}
-              width={50}
-              fill={styles.colors.light4}
-            />
+            {image ? (
+              <ImageSelect source={image} />
+            ) : (
+              <ProfileOutlited
+                height={50}
+                width={50}
+                fill={styles.colors.light4}
+              />
+            )}
           </Icon>
           <TextProfile>Adicionar foto de perfil</TextProfile>
         </ButtonProfilePhoto>

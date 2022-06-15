@@ -11,7 +11,7 @@ const HEIGHT = "height";
 
 export const Content = styled(KeyboardAwareScrollView).attrs({
   behavior: Platform.OS === IOS ? PADDING : HEIGHT,
-  keyboardVerticalOffset: Platform.OS === IOS ? "20px" : "200px",
+  keyboardVerticalOffset: Platform.OS === IOS ? 20 : 0,
 })`
   background-color: ${styles.colors.light4};
   border-radius: 30px;
@@ -68,4 +68,12 @@ export const Icon = styled.View`
   align-items: center;
   justify-content: center;
   background-color: ${styles.colors.primary};
+`;
+
+export const ImageSelect = styled.Image`
+  height: 80px;
+  width: 80px;
+  border-radius: 50px;
+  align-items: center;
+  justify-content: center;
 `;
