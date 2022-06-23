@@ -2,6 +2,7 @@ import React from "react";
 import {
   useFonts,
   Montserrat_400Regular,
+  Montserrat_500Medium,
   Montserrat_600SemiBold,
   Montserrat_700Bold,
 } from "@expo-google-fonts/montserrat";
@@ -13,6 +14,7 @@ export default function App() {
   const [fonteCarregada] = useFonts({
     Montserrat_400Regular,
     Montserrat_600SemiBold,
+    Montserrat_500Medium,
     Montserrat_700Bold,
   });
 

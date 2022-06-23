@@ -8,6 +8,7 @@ interface ButtonProps extends TouchableOpacityProps {
   icon?: boolean;
   disabled?: boolean;
   secondary?: boolean;
+  select?: boolean;
   background?: string;
 }
 
@@ -17,16 +18,20 @@ const Button: React.FC<ButtonProps | any> = ({
   disabled,
   secondary,
   background,
+  select,
   ...rest
 }) => (
   <Container
     background={background}
     icon={Icon}
     disabled={disabled}
+    select={select}
     secondary={secondary}
     {...rest}
   >
-    <ButtonText secondary={secondary}>{title}</ButtonText>
+    <ButtonText secondary={secondary} select={select}>
+      {title}
+    </ButtonText>
     {Icon && (
       <Icon fill={secondary ? styles.colors.info : styles.colors.light4} />
     )}

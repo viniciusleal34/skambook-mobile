@@ -1,5 +1,7 @@
 import { Camera, CameraType, CameraProps } from "expo-camera";
 import React, { useCallback, useRef, useState } from "react";
+import { Platform } from "react-native";
+import { Image } from "react-native-svg";
 import {
   CameraOutlined,
   SwitchCameraOutlined,
@@ -23,12 +25,14 @@ interface CameraComponentProps {
   setVisibleCamera: React.Dispatch<React.SetStateAction<boolean>>;
   setImage: React.Dispatch<any>;
   setVisibleModal: React.Dispatch<React.SetStateAction<boolean>>;
+  image: any;
 }
-
+const IOS = "ios";
 const CameraComponent: React.FC<CameraComponentProps> = ({
   setVisibleCamera,
   setImage,
   setVisibleModal,
+  image,
 }) => {
   const [type, setType] = useState(CameraType.back);
   const [stop, setStop] = useState(false);
@@ -58,8 +62,9 @@ const CameraComponent: React.FC<CameraComponentProps> = ({
 
   const takePicture = async () => {
     try {
+      const options = { quality: 0.5, base64: true };
       if (camRef?.current) {
-        const data = await camRef.current.takePictureAsync();
+        const data = await camRef.current.takePictureAsync(options);
         setImage(data);
         setVisibleModal(false);
         setVisibleCamera(false);
@@ -87,7 +92,9 @@ const CameraComponent: React.FC<CameraComponentProps> = ({
           </ContainerSaveImage>
         ) : (
           <Footer>
-            <ButtonPicture onPress={StopCam} />
+            <ButtonPicture
+              onPress={Platform.OS === IOS ? StopCam : takePicture}
+            />
             <ButtonTurnCamera onPress={swapCamera}>
               <SwitchCameraOutlined height={35} width={35} fill="#fff" />
             </ButtonTurnCamera>

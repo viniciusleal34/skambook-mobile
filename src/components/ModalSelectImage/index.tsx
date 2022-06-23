@@ -17,12 +17,14 @@ interface ModalSelectProps {
   visible: boolean;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
   setImage: React.Dispatch<any>;
+  image: any;
 }
 
 const ModalSelectImage: React.FC<ModalSelectProps> = ({
   visible,
   setVisible,
   setImage,
+  image,
 }) => {
   const [cameraOpen, setCameraOpen] = useState(false);
   const selectPicture = async () => {
@@ -60,6 +62,7 @@ const ModalSelectImage: React.FC<ModalSelectProps> = ({
             setImage={setImage}
             setVisibleCamera={setCameraOpen}
             setVisibleModal={setVisible}
+            image={image}
           />
         ) : (
           <>

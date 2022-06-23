@@ -9,11 +9,12 @@ const PADDING = "padding";
 const HEIGHT = "height";
 
 export const Content = styled(KeyboardAwareScrollView).attrs({
-  behavior: Platform.OS === IOS ? PADDING : HEIGHT,
+  behavior: Platform.OS === IOS ? PADDING : null,
   keyboardVerticalOffset: Platform.OS === IOS ? 20 : 0,
 })`
   background-color: ${styles.colors.light4};
-  border-radius: 30px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 `;
 
 export const Container = styled.View`
@@ -43,5 +44,5 @@ export const TextDescription = styled.Text`
   font-size: 10px;
   font-family: ${styles.fonts.light};
   margin-left: 20px;
-  line-height: 14.8px;
+  line-height: 14px;
 `;

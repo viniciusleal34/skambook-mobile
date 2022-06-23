@@ -4,6 +4,7 @@ import styles from "../../styles";
 interface DefaultProps {
   disabled?: boolean;
   icon?: boolean;
+  select?: boolean;
   secondary?: boolean;
   background?: string;
 }
@@ -33,6 +34,12 @@ export const Container = styled.TouchableOpacity.attrs({
       padding: 0px 20px;
       width: 93%;
     `}
+ ${(props: DefaultProps) =>
+    props.select &&
+    css`
+      border: 2px solid ${styles.colors.primary};
+      background-color: rgba(0, 213, 91, 0.3);
+    `}
 `;
 
 export const ButtonText = styled.Text<DefaultProps>`
@@ -44,5 +51,12 @@ export const ButtonText = styled.Text<DefaultProps>`
     css`
       color: ${styles.colors.dark4};
       font-family: ${styles.fonts.regular};
+    `}
+  ${(props: DefaultProps) =>
+    props.select &&
+    css`
+      color: ${styles.colors.primary};
+      font-family: ${styles.fonts.regular};
+      font-weight: bold;
     `}
 `;

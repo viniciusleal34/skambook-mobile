@@ -1,9 +1,10 @@
 import styled from "styled-components/native";
 import styles from "../../styles";
 
-export const Content = styled.View`
+export const Content = styled.ScrollView`
   background-color: ${styles.colors.light4};
-  border-radius: 30px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
   height: 100%;
 `;
 

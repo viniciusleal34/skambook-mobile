@@ -26,6 +26,7 @@ export default {
   },
   fonts: {
     light: "Montserrat_400Regular",
+    medium: "Montserrat_500Medium",
     regular: "Montserrat_600SemiBold",
   },
 };

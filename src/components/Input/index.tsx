@@ -99,8 +99,8 @@ const Input: React.FC<InputProps> = (
   }, [visiblePassword]);
 
   return (
-    <Container>
-      <Label isField={isField} isFocused={isFocused}>
+    <Container isErrored={!!error}>
+      <Label isField={isField} isFocused={isFocused} isErrored={!!error}>
         {label}
       </Label>
       <ContainerInput isFocused={isFocused} isErrored={!!error}>
@@ -118,11 +118,21 @@ const Input: React.FC<InputProps> = (
           }}
           {...rest}
         />
-        {Icon && <Icon fill={color} />}
+        {Icon && (
+          <Icon fill={!!error && !isFocused ? styles.colors.error : color} />
+        )}
         {password && (
           <TouchableOpacity onPress={handleSecure}>
-            {visiblePassword && <EyeOffOutlined fill={color} />}
-            {!visiblePassword && <EyeOutlined fill={color} />}
+            {visiblePassword && (
+              <EyeOffOutlined
+                fill={!!error && !isFocused ? styles.colors.error : color}
+              />
+            )}
+            {!visiblePassword && (
+              <EyeOutlined
+                fill={!!error && !isFocused ? styles.colors.error : color}
+              />
+            )}
           </TouchableOpacity>
         )}
       </ContainerInput>

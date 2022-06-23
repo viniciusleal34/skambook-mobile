@@ -1,8 +1,9 @@
+import React, { useCallback, useRef } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import React, { useCallback } from "react";
-import Input from "../../components/Input";
-import { ProfileOutlited, ArrowFoward } from "../../assets/icons";
-
+import * as Yup from "yup";
+import { FormHandles } from "@unform/core";
 import {
   Container,
   Content,
@@ -11,17 +12,52 @@ import {
   FormContainer,
   Title,
 } from "./styles";
+import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
-import { GlobalProps } from "../../interfaces/GlobalProps";
+import { ProfileOutlited, ArrowFoward } from "../../assets/icons";
+import getValidationErrors from "../../utils/getValidationError";
+import { propsStack } from "../../routes/Stack/interface/StackProps";
 
-const SingUp: React.FC<GlobalProps> = ({ navigation }) => {
-  const nextStepAsync = useCallback(() => {
+export default function SingUp() {
+  const navigation = useNavigation<propsStack>();
+
+  const formRef = useRef<FormHandles | any>(null);
+  const nextStepAsync = useCallback(async (data: any) => {
     try {
+      formRef.current.setErrors({});
+
+      const schema = Yup.object().shape({
+        email: Yup.string()
+          .email("Deve ser um email valido")
+          .required("O email é obrigatorio"),
+        password: Yup.string()
+          .required("Please enter your password")
+          .matches(
+            /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+            "Senha deve seguir o padrão abaixo:"
+          ),
+        passwordConfirmation: Yup.string()
+          .oneOf([Yup.ref("password"), null], "Senhas divergentes")
+          .required("Confirmação de senha obrigatorio"),
+      });
+      await schema.validate(data, {
+        abortEarly: false,
+      });
       navigation.navigate("SignUpProfile");
     } catch (err) {
       console.log(err);
-      return err;
+
+      if (err instanceof Yup.ValidationError) {
+        const error = getValidationErrors(err);
+        formRef.current.setErrors(error);
+
+        return;
+      }
+      Alert.alert(
+        "Erro na autenticação",
+        "Ocorreu um erro ao fazer login, cheque as credenciais"
+      );
     }
   }, []);
 
@@ -29,9 +65,9 @@ const SingUp: React.FC<GlobalProps> = ({ navigation }) => {
     <Container>
       <StatusBar />
       <Header />
-      <Content enabled>
+      <Content>
         <Title>Vamos começar!</Title>
-        <FormContainer onSubmit={(data) => console.log(data)}>
+        <FormContainer ref={formRef} onSubmit={nextStepAsync}>
           <Input
             name="email"
             placeholder="E-mail"
@@ -39,14 +75,14 @@ const SingUp: React.FC<GlobalProps> = ({ navigation }) => {
             icon={ProfileOutlited}
           />
           <Input
-            name="senha"
+            name="password"
             password
             placeholder="Senha"
             label="Senha"
             autoComplete="off"
           />
           <Input
-            name="confirm_senha"
+            name="passwordConfirmation"
             autoComplete="off"
             password
             placeholder="Confirme sua senha"
@@ -61,10 +97,12 @@ const SingUp: React.FC<GlobalProps> = ({ navigation }) => {
           <TextDescription>• Pelo menos Letra maiuscula;</TextDescription>
           <TextDescription>• Pelo menos um caracter especial;</TextDescription>
         </Description>
-        <Button title="Continuar" icon={ArrowFoward} onPress={nextStepAsync} />
+        <Button
+          title="Continuar"
+          icon={ArrowFoward}
+          onPress={() => formRef.current?.submitForm()}
+        />
       </Content>
     </Container>
   );
-};
-
-export default SingUp;
+}

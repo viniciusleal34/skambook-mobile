@@ -1,5 +1,6 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useCallback } from "react";
+import { StatusBar } from "expo-status-bar";
+import { useNavigation } from "@react-navigation/native";
 import { ProfileOutlited, ArrowFoward, GoogleMore } from "../../assets/icons";
 import { Container, Content, Slider } from "./styles";
 import Button from "../../components/Button";
@@ -7,9 +8,10 @@ import Header from "../../components/Header";
 import styles from "../../styles";
 import Informations from "./components/Informations";
 import AppIntroSlider from "react-native-app-intro-slider";
-import { GlobalProps } from "../../interfaces/GlobalProps";
+import { propsStack } from "../../routes/Stack/interface/StackProps";
 
-export default function Onboarding({ navigation }: GlobalProps) {
+export default function Onboarding() {
+  const navigation = useNavigation<propsStack>();
   const slides = [
     {
       key: "1",

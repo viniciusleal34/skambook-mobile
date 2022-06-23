@@ -22,7 +22,7 @@ export const Line = styled.View<LineProps>`
   bottom: 2px;
   left: ${(props: LineProps) => props.left};
   align-self: center;
-  border-radius: 100% 50%;
+  /* border-radius: 100% 50%; */
   transform: skewY(-3deg);
   background-color: ${styles.colors.primary};
 `;
@@ -33,5 +33,4 @@ export const SubTitle = styled.Text`
   color: ${styles.colors.dark2};
   line-height: 60px;
   margin: 40px 20px;
-  line-height: 14.8px;
 `;

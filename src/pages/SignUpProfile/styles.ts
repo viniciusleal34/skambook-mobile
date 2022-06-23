@@ -10,17 +10,21 @@ const PADDING = "padding";
 const HEIGHT = "height";
 
 export const Content = styled(KeyboardAwareScrollView).attrs({
-  behavior: Platform.OS === IOS ? PADDING : HEIGHT,
+  behavior: Platform.OS === IOS ? PADDING : null,
   keyboardVerticalOffset: Platform.OS === IOS ? 20 : 0,
 })`
   background-color: ${styles.colors.light4};
-  border-radius: 30px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  height: 100%;
 `;
+
+export const ScrollView = styled.ScrollView``;
 
 export const Container = styled.View`
   background-color: ${styles.colors.primary};
-  height: 100%;
   flex-direction: column;
+  height: 100%;
 `;
 
 export const FormContainer = styled(Form)`

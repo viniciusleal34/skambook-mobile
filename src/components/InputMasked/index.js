@@ -2,13 +2,17 @@ import React, { useState, useCallback, forwardRef } from "react";
 import { TextInputMask } from "react-native-masked-text";
 import Input from "../Input";
 
-const InputMask = ({ type, ...rest }, inputRef) => {
+const InputMask = ({ type, rawText, setRawText, ...rest }, inputRef) => {
   const [text, setText] = useState("");
-  const [rawText, setRawText] = useState("");
-  const handleChangeText = useCallback((maskedText, unmaskedText) => {
-    setText(maskedText);
-    setRawText(unmaskedText);
-  }, []);
+
+  const handleChangeText = useCallback(
+    (maskedText, unmaskedText) => {
+      setText(maskedText);
+      setRawText(unmaskedText);
+    },
+    [text]
+  );
+
   return (
     <TextInputMask
       type={type}
