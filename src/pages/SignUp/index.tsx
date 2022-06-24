@@ -32,7 +32,7 @@ export default function SingUp() {
           .email("Deve ser um email valido")
           .required("O email é obrigatorio"),
         password: Yup.string()
-          .required("Please enter your password")
+          .required("Senha é obrigatoria")
           .matches(
             /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
             "Senha deve seguir o padrão abaixo:"

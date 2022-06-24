@@ -49,7 +49,6 @@ const SignUpProfile: React.FC<GlobalProps> = ({ navigation }) => {
       try {
         data.birth_date = date;
         formRef.current.setErrors({});
-        console.log(data);
         const schema = Yup.object().shape({
           name: Yup.string().required("Nome é obrigatorio"),
           birth_date: Yup.date().required("Data de nascimento obrigatoria"),

@@ -63,6 +63,7 @@ export default function Onboarding() {
             showNextButton={false}
             renderItem={({ item }) => <Informations item={item} />}
             data={slides}
+            showDoneButton={false}
           />
         </Slider>
         <Button
